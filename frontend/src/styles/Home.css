@@ -1,0 +1,19 @@
+.home {
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  color: #333;
+}
+
+.section {
+  padding: 2rem;
+}
+
+.section h2 {
+  color: #001f3f;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}

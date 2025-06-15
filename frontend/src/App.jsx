@@ -1,13 +1,15 @@
-import React from 'react';
-import './App.css';
-import './styles/Login.css'; // Importa los estilos del login
-import Login from './components/Login'; // Importa el componente
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './components/Home';
+import Login from './components/Login';
 
 function App() {
   return (
-    <div className="App">
-      <Login />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </Router>
   );
 }
 
