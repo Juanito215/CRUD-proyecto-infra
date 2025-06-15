@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: studenthub-backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend/uploads:/app/uploads  # Persistencia de imágenes
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: juanito
+      DB_PASSWORD: Juanito980515
+      DB_NAME: StudentHub
+      DB_PORT: 5432
+    restart: unless-stopped
+
+  db:
+    image: postgres:15
+    container_name: studenthub-db
+    environment:
+      POSTGRES_USER: juanito
+      POSTGRES_PASSWORD: Juanito980515
+      POSTGRES_DB: StudentHub
+    ports:
+      - "5433:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./database/database.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: studenthub-frontend
+    ports:
+      - "5174:80" # Puerto externo : interno Nginx
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  db-data:
